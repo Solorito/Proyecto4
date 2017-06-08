@@ -1,0 +1,82 @@
+import ddf.minim.*;
+
+float t;
+
+
+Minim minim;
+AudioPlayer player; 
+
+static final int NUM=15;
+static final int num=10;
+
+void setup(){
+ background (20);
+ size(500,500);
+ minim= new Minim(this);
+  player = minim.loadFile("music.mp3");
+
+player.play ();
+}
+
+void draw(){
+ background(random(0));
+ stroke(random(255), random(255), random(255));
+ strokeWeight(4);
+
+ 
+ translate(width/2, height /2);
+ 
+ for (int i=0; i<NUM; i++){
+ line(x1(i+i), y1(t+i),x2(t+i), y2(t+i));
+  line(x1(i-i), y1(t-i),x2(t-i), y2(t-i));
+  line(x1(-i+i), y1(-t+i),x2(-t+i), y2(-t+i));
+  line(x1(-i-i), y1(-t-i),x2(-t-i), y2(-t-i));
+  
+  point(x1(i+i), y1(t+i));
+  point(-x2(-t-i), -y2(-t-i));
+  point(-x1(i-i), -y1(t-i));
+  point(-x2(t+i), -y2(t+i));
+ }
+
+
+ t+=0.10;
+ 
+  if (mousePressed){
+   background(random(255));
+   for (int i=0; i<num; i++){
+  
+  
+  stroke(random(255), random(255), random(255));
+  ellipse(x1(i+i), y1(t+i),x2(t+i), y2(t+i));
+  noFill();
+   stroke(random(255), random(255), random(255));
+   
+  ellipse(x1(i-i), y1(t-i),x2(t-i), y2(t-i));
+  ellipse(x1(-i+i), y1(-t+i),x2(-t+i), y2(-t+i));
+
+  
+  ellipse(-x1(i+i), -y1(t+i),-x2(-t-3), -y2(-t-3));
+  ellipse(-x1(i-i), -y1(t-i),-x2(t+3), -y2(t+3));
+   }
+   t-=0.13;
+   
+ }
+t+=0.7;
+}
+
+
+float x1 (float t){
+  return sin(t/10) * 100 + sin(t/40) * 100;
+  
+}
+float y1 (float t){
+  return cos (t/10) * 100;
+}
+
+float x2 (float t){
+  return sin(t/10) * 100 + sin(t/2) * 2 +cos(t/2);
+  
+}
+float y2 (float t){
+  return cos (t/20) * 100 + cos(t/12) * 50;
+}
